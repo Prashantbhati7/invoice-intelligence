@@ -10,7 +10,7 @@ def load_vendor_invoice_data(db_paht:str):
     return df
 
 def prepare_features(df:pd.DataFrame):
-    X = df[['Dollars','Quantity']]
+    X = df[['Dollars']]
     Y= df['Freight']
     return X,Y
 

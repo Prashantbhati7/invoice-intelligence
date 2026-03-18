@@ -6,8 +6,7 @@ import joblib
 
 def load_invoice_data(db_path:str):
     conn = sqlite3.connect(db_path)
-    query = """ 
-     WITH  purchase_agg AS (
+    query = """ WITH  purchase_agg AS (
                 SELECT p.PONumber,
                  COUNT(DISTINCT p.Brand) AS total_brands,
                   SUM(p.Quantity) AS total_item_quantity,
@@ -17,7 +16,7 @@ def load_invoice_data(db_path:str):
         )
         SELECT
         vi.PONumber,
-        vi.Quantity AS  
+        vi.Quantity AS invoice_quantity,
         vi.Dollars AS invoice_dollars,
         vi.Freight,
         (julianday(vi.InvoiceDate)-julianday(vi.PODate)) AS days_po_to_invoice,
@@ -30,7 +29,7 @@ def load_invoice_data(db_path:str):
         LEFT JOIN purchase_agg pa ON
         vi.PONumber = pa.PONumber
     """
-    df = pd.read_sql_query(query, conn)
+    df = pd.read_sql_query(query,conn)
     conn.close()
     return df
 

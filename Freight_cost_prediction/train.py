@@ -7,8 +7,8 @@ from model_evaluation import (train_linear_regression, train_decision_tree, trai
 
 def main():
     db_path='/Users/prashant/Invoice Intelligence/data/inventory.db'
-    model_dir = Path('models')
-    model_dir.mkdir(exist_ok=True)
+    # model_dir = Path('models')
+    # model_dir.mkdir(exist_ok=True)
     df = load_vendor_invoice_data(db_path)
     X,Y = prepare_features(df)
     X_train, X_test, Y_train, Y_test = split_data(X,Y)
@@ -30,8 +30,8 @@ def main():
     print()
     print(f"Best Model: {best_model_name}")
 
-    model_path = model_dir / f'{best_model_name}.pkl'
-    pickle.dump(best_model, open(model_path, 'wb'))
+    model_path = f'/Users/prashant/Invoice Intelligence/models/predict_freight_model.pkl'
+    pickle.dump(best_model, open(model_path, 'wb')) 
 
 if __name__ == "__main__":
     main()
